@@ -1,0 +1,8 @@
+version: 1
+update_configs:
+  - package_manager: "docker"
+    directory: /
+    update_schedule: "weekly"
+    target_branch: "master"
+    default_reviewers:
+      - "sharu1204"
