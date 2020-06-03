@@ -1,0 +1,42 @@
+name: "tfupdate action"
+description: "Run tfupdate in Github Action"
+inputs:
+  resource:
+    description: "Resource to be updated"
+    required: true
+  recursive:
+    description: "Whether to check a directory recursively or not"
+    required: false
+    default: "false"
+  ignore_path:
+    description: "A regular expression for path to ignore"
+    required: false
+    default: "false"
+  file_path:
+    description: "A path to file or directory to be updated"
+    required: false
+    default: "./"
+  provider_name:
+    description: "Provider name to be updated"
+    required: false
+  module_name:
+    description: "Module name to be updated"
+    required: false
+  source_type:
+    description: "Source type of module"
+    required: false
+  base_branch:
+    description: "Which branch to send a PR"
+    required: false
+    default: "master"
+  label:
+    description: "A lable to be added when creating a PR"
+    required: false
+    default: "dependencies"
+  reviewer:
+    description: "Reviewer to be assigned when creating a PR"
+    required: false
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
