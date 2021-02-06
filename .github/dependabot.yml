@@ -10,3 +10,13 @@ updates:
     target-branch: 'master'
     reviewers:
       - 'sharu1204'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+      time: '10:00'
+      timezone: 'Asia/Tokyo'
+    open-pull-requests-limit: 10
+    target-branch: 'master'
+    reviewers:
+      - 'sharu1204'
