@@ -37,7 +37,7 @@ If you want to skip the current latest version for some reason, you can simply c
 
 **Optional** A path to file or directory to be updated. Default to `"./"`
 
-### `provider`
+### `provider_name`
 
 **Optional** The name of provider. _Required_ when setting `"provider"` resource.
 
