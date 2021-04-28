@@ -84,20 +84,20 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Update terraform
-        uses: HENNGE/tfupdate-action@v0.1.1
+        uses: HENNGE/tfupdate-action@v1.0.0
         with:
           resource: "terraform"
           file_path: "./tf/config.tf"
 
       - name: Update terraform provider
-        uses: HENNGE/tfupdate-action@v0.1.1
+        uses: HENNGE/tfupdate-action@v1.0.0
         with:
           resource: "provider"
           provider_name: "aws"
           file_path: "./tf/config.tf"
 
       - name: Update terraform module
-        uses: HENNGE/tfupdate-action@v0.1.1
+        uses: HENNGE/tfupdate-action@v1.0.0
         with:
           resource: "module"
           module_name: "terraform-aws-modules/vpc/aws"
