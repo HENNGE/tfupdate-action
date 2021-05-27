@@ -30,7 +30,7 @@ inputs:
     required: false
     default: "master"
   label:
-    description: "A lable to be added when creating a PR"
+    description: "A label to be added when creating a PR"
     required: false
     default: "dependencies"
   reviewer:
