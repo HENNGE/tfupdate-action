@@ -13,7 +13,7 @@ function run_tfupdate {
       PULL_REQUEST_BODY="For details see: https://github.com/hashicorp/terraform/releases"
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
-  
+
     provider)
       if [ ! ${INPUT_PROVIDER_NAME} ]; then
         echo 'ERROR: "provier_name" needs to be set for "provider" resource'
@@ -81,7 +81,7 @@ function run_tfupdate {
     echo "A pull request is already closed"
     exit 0
   else
-    CHECKOUT_BRANCH="update-${INPUT_RESOURCE}-to-v${VERSION}"
+    CHECKOUT_BRANCH="update-${INPUT_RESOURCE}-to-v${VERSION}-$(date +%Y%m%d-%H%M%S)"
     echo "Checking out to ${CHECKOUT_BRANCH} branch"
     git fetch --all
     git checkout -b ${CHECKOUT_BRANCH} origin/${INPUT_BASE_BRANCH}
