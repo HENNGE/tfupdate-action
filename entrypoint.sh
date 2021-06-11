@@ -21,7 +21,7 @@ function run_tfupdate {
       fi
       VERSION=$(tfupdate release list terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME}| grep -v ".*-rc[0-9]$"| sort -r| head -1)
       PULL_REQUEST_BODY="For details see: https://github.com/terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME}/releases"
-      UPDATE_MESSAGE="[tfupdate] Bump Terraform Provider to v${VERSION}"
+      UPDATE_MESSAGE="[tfupdate] Bump Terraform Provider ${INPUT_PROVIDER_NAME} to v${VERSION}"
       ;;
     module)
       if ! [ ${INPUT_MODULE_NAME} ] || ! [ ${INPUT_SOURCE_TYPE} ]; then
