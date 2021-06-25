@@ -9,7 +9,7 @@ set -e
 function run_tfupdate {
   case ${INPUT_RESOURCE} in
     terraform)
-      VERSION=$(tfupdate release list hashicorp/terraform| grep -v ".*-rc[0-9]$"| sort -r| head -1)
+      VERSION=$(tfupdate release latest hashicorp/terraform)
       PULL_REQUEST_BODY="For details see: https://github.com/hashicorp/terraform/releases"
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
@@ -19,7 +19,7 @@ function run_tfupdate {
         echo 'ERROR: "provier_name" needs to be set for "provider" resource'
         exit 1
       fi
-      VERSION=$(tfupdate release list terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME}| grep -v ".*-rc[0-9]$"| sort -r| head -1)
+      VERSION=$(tfupdate release latest terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME})
       PULL_REQUEST_BODY="For details see: https://github.com/terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME}/releases"
       UPDATE_MESSAGE="[tfupdate] Bump Terraform Provider ${INPUT_PROVIDER_NAME} to v${VERSION}"
       ;;
@@ -28,7 +28,7 @@ function run_tfupdate {
         echo 'ERROR: both "module_name" and "source_type" need to be set for "module" resource'
         exit 1
       fi
-      VERSION=$(tfupdate release list --source-type=${INPUT_SOURCE_TYPE} ${INPUT_MODULE_NAME}| grep -v ".*-rc[0-9]$"| sort -r| head -1)
+      VERSION=$(tfupdate release latest --source-type=${INPUT_SOURCE_TYPE} ${INPUT_MODULE_NAME})
       UPDATE_MESSAGE="[tfupdate] Bump Terraform Module ${INPUT_MODULE_NAME} to v${VERSION}"
       case ${INPUT_SOURCE_TYPE} in
         github)
