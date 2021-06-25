@@ -9,7 +9,7 @@ set -e
 function run_tfupdate {
   case ${INPUT_RESOURCE} in
     terraform)
-      VERSION=$(tfupdate release list hashicorp/terraform| grep -v ".*-rc[0-9]$"| sort -r| head -1)
+      VERSION=$(tfupdate release list hashicorp/terraform| egrep -v ".*((-rc[0-9]$)|(-alpha)|(-beta))"| sort -r| head -1)
       PULL_REQUEST_BODY="For details see: https://github.com/hashicorp/terraform/releases"
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
