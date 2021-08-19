@@ -13,7 +13,7 @@ function run_tfupdate {
       PULL_REQUEST_BODY="For details see: https://github.com/hashicorp/terraform/releases"
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
-  
+
     provider)
       if [ ! ${INPUT_PROVIDER_NAME} ]; then
         echo 'ERROR: "provier_name" needs to be set for "provider" resource'
@@ -95,6 +95,21 @@ function run_tfupdate {
   COMMAND="${INPUT_RESOURCE} ${ARGS} ${INPUT_FILE_PATH}"
   echo "Running tfupdate ${COMMAND}"
   tfupdate ${COMMAND}
+
+  # update .terraform-version
+  if [ "${INPUT_RESOURCE}" = 'terraform' ]; then
+    if [ "${INPUT_RECURSIVE}" = "true" ]; then
+      TV_IGNORE_OPTION=''
+      if [ "${INPUT_IGNORE_PATH}" != '' ]; then
+        TV_IGNORE_OPTION="! -regex ${INPUT_IGNORE_PATH}"
+      fi
+      find "${INPUT_FILE_PATH}" -name .terraform-version ${TV_IGNORE_OPTION} -exec sh -c 'TV="$1";VERSION="$2";echo ${VERSION} > ${TV}' _ {} "${VERSION}" \;
+    else
+      if [ -f "${INPUT_FILE_PATH}/.terraform-version" ]; then
+        echo "${VERSION}" > "${INPUT_FILE_PATH}/.terraform-version"
+      fi
+    fi
+  fi
 
   # Send a pull reuqest agaist the base branch
   if git add . && git diff --cached --exit-code --quiet; then
