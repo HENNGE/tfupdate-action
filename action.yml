@@ -19,6 +19,9 @@ inputs:
   provider_name:
     description: "Provider name to be updated"
     required: false
+  provider_repo:
+    description: "Provider GitHub repository to be updated"
+    required: false
   module_name:
     description: "Module name to be updated"
     required: false
