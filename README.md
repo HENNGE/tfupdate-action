@@ -41,6 +41,10 @@ If you want to skip the current latest version for some reason, you can simply c
 
 **Optional** The name of provider. _Required_ when setting `"provider"` resource.
 
+### `provider_repo`
+
+**Optional** GitHub repository of provider. _Required_ when using [Verified/Community providers](https://registry.terraform.io/browse/providers?tier=partner%2Ccommunity).
+
 ### `module_name`
 
 **Optional** The name of module. _Required_ when setting `"module"` resource.
