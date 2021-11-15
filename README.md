@@ -23,7 +23,7 @@ If you want to skip the current latest version for some reason, you can simply c
 
 ### `resource`
 
-**Required** The name of resource to be updated. Either `"terraform"` `"provider" or "module"`.
+**Required** The name of resource to be updated. Either `"terraform"` `"provider"` or `"module"`.
 
 ### `recursive`
 
@@ -88,20 +88,20 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Update terraform
-        uses: HENNGE/tfupdate-action@v1.0.2
+        uses: HENNGE/tfupdate-action@v1.0.3
         with:
           resource: "terraform"
           file_path: "./tf/config.tf"
 
       - name: Update terraform provider
-        uses: HENNGE/tfupdate-action@v1.0.2
+        uses: HENNGE/tfupdate-action@v1.0.3
         with:
           resource: "provider"
           provider_name: "aws"
           file_path: "./tf/config.tf"
 
       - name: Update terraform module
-        uses: HENNGE/tfupdate-action@v1.0.2
+        uses: HENNGE/tfupdate-action@v1.0.3
         with:
           resource: "module"
           module_name: "terraform-aws-modules/vpc/aws"
