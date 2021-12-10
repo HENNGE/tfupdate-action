@@ -75,13 +75,14 @@ function run_tfupdate {
   git config --local user.name "${USER_NAME}"
 
   # Checkout a branch if a PR does not exist.
-  if hub pr list -s "open" -f "%t: %U%n" | grep -F "${UPDATE_MESSAGE}"; then
+  ESCAPED_MESSAGE=$(echo $UPDATE_MESSAGE | sed "s/\./\\\./g; s/\]/\\\]/g; s/\[/\\\[/g")
+  if hub pr list -s "open" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
     echo "A pull request already exists"
     exit 0
-  elif hub pr list -s "merged" -f "%t: %U%n" | grep -F "${UPDATE_MESSAGE}"; then
+  elif hub pr list -s "merged" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
     echo "A pull request is already merged"
     exit 0
-  elif hub pr list -s "closed" -f "%t: %U%n" | grep -F "${UPDATE_MESSAGE}"; then
+  elif hub pr list -s "closed" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
     echo "A pull request is already closed"
     exit 0
   else
