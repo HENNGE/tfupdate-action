@@ -11,6 +11,9 @@ function run_tfupdate {
     terraform)
       VERSION=$(tfupdate release latest hashicorp/terraform)
       PULL_REQUEST_BODY="For details see: https://github.com/hashicorp/terraform/releases"
+      # Changing UPDATE_MESSAGE variable will cause issue in matching existing pull requests
+      # Do not change unless absolutely necessary
+      # ref. https://github.com/HENNGE/tfupdate-action/issues/25
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
   
@@ -25,6 +28,9 @@ function run_tfupdate {
       fi
       VERSION=$(tfupdate release latest "$REPOSITORY")
       PULL_REQUEST_BODY="For details see: https://github.com/$REPOSITORY/releases"
+      # Changing UPDATE_MESSAGE variable will cause issue in matching existing pull requests
+      # Do not change unless absolutely necessary
+      # ref. https://github.com/HENNGE/tfupdate-action/issues/25
       UPDATE_MESSAGE="[tfupdate] Bump Terraform Provider ${INPUT_PROVIDER_NAME} to v${VERSION}"
       ;;
     module)
@@ -33,6 +39,9 @@ function run_tfupdate {
         exit 1
       fi
       VERSION=$(tfupdate release latest --source-type=${INPUT_SOURCE_TYPE} ${INPUT_MODULE_NAME})
+      # Changing UPDATE_MESSAGE variable will cause issue in matching existing pull requests
+      # Do not change unless absolutely necessary
+      # ref. https://github.com/HENNGE/tfupdate-action/issues/25
       UPDATE_MESSAGE="[tfupdate] Bump Terraform Module ${INPUT_MODULE_NAME} to v${VERSION}"
       case ${INPUT_SOURCE_TYPE} in
         github)
