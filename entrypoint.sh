@@ -79,6 +79,9 @@ function run_tfupdate {
     ARGS="${ARGS} ${INPUT_MODULE_NAME}"
   fi
 
+  # Fix for https://github.com/HENNGE/tfupdate-action/issues/43
+  git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
   # Set github config
   git config --local user.email "${USER_EMAIL}"
   git config --local user.name "${USER_NAME}"
