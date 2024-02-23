@@ -91,13 +91,13 @@ function run_tfupdate {
   if [ -n "${INPUT_BRANCH_NAME_SUFFIX}" ]; then
     BRANCH_NAME="${BRANCH_NAME}_${INPUT_BRANCH_NAME_SUFFIX}"
   fi
-  if hub pr list -s "open" -h "${BRANCH_NAME}"; then
+  if [[ $(hub pr list -s "open" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request already exists"
     exit 0
-  elif hub pr list -s "merged" -h "${BRANCH_NAME}"; then
+  elif [[ $(hub pr list -s "merged" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request is already merged"
     exit 0
-  elif hub pr list -s "closed" -h "${BRANCH_NAME}"; then
+  elif [[ $(hub pr list -s "closed" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request is already closed"
     exit 0
   else
