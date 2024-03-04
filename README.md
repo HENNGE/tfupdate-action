@@ -65,6 +65,10 @@ If you want to skip the current latest version for some reason, you can simply c
 
 **Optional** A reviewer to be assigned to a PR. You can assign multiple reviewers with a comma-separated list (no spaces around the comma).
 
+### `branch_name_suffix`
+
+**Optional** A suffix to append the branch name. This will allow multiple PRs in the same repo, for different paths or CODEOWNERS, for example.
+
 ## Example Usage
 
 ```yml

@@ -16,7 +16,7 @@ function run_tfupdate {
       # ref. https://github.com/HENNGE/tfupdate-action/issues/25
       UPDATE_MESSAGE="[tfupdate] Bump Terraform to v${VERSION}"
       ;;
-  
+
     provider)
       if [ ! ${INPUT_PROVIDER_NAME} ]; then
         echo 'ERROR: "provier_name" needs to be set for "provider" resource'
@@ -87,21 +87,23 @@ function run_tfupdate {
   git config --local user.name "${USER_NAME}"
 
   # Checkout a branch if a PR does not exist.
-  ESCAPED_MESSAGE=$(echo $UPDATE_MESSAGE | sed "s/\./\\\./g; s/\]/\\\]/g; s/\[/\\\[/g")
-  if hub pr list -s "open" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
+  BRANCH_NAME="update-${INPUT_RESOURCE}-to-v${VERSION}"
+  if [ -n "${INPUT_BRANCH_NAME_SUFFIX}" ]; then
+    BRANCH_NAME="${BRANCH_NAME}_${INPUT_BRANCH_NAME_SUFFIX}"
+  fi
+  if [[ $(hub pr list -s "open" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request already exists"
     exit 0
-  elif hub pr list -s "merged" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
+  elif [[ $(hub pr list -s "merged" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request is already merged"
     exit 0
-  elif hub pr list -s "closed" -f "%t: %U%n" | grep -x "${ESCAPED_MESSAGE}:.*"; then
+  elif [[ $(hub pr list -s "closed" -h "${BRANCH_NAME}") ]]; then
     echo "A pull request is already closed"
     exit 0
   else
-    CHECKOUT_BRANCH="update-${INPUT_RESOURCE}-to-v${VERSION}"
-    echo "Checking out to ${CHECKOUT_BRANCH} branch"
+    echo "Checking out to ${BRANCH_NAME} branch"
     git fetch --all
-    git checkout -b ${CHECKOUT_BRANCH} origin/${INPUT_BASE_BRANCH}
+    git checkout -b "${BRANCH_NAME}" "origin/${INPUT_BASE_BRANCH}"
   fi
 
   # Execute tfupdate command

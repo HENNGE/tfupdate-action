@@ -39,6 +39,9 @@ inputs:
   reviewer:
     description: "Reviewer to be assigned when creating a PR"
     required: false
+  branch_name_suffix:
+    description: "Suffix branch name with given string. Allows multiple update PRs in same repo"
+    required: false
 
 runs:
   using: "docker"
