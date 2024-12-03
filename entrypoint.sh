@@ -22,7 +22,7 @@ function run_tfupdate {
         echo 'ERROR: "provier_name" needs to be set for "provider" resource'
         exit 1
       fi
-      REPOSITORY="terraform-providers/terraform-provider-${INPUT_PROVIDER_NAME}"
+      REPOSITORY="hashicorp/terraform-provider-${INPUT_PROVIDER_NAME}"
       if [ -n "${INPUT_PROVIDER_REPO}" ]; then
         REPOSITORY=${INPUT_PROVIDER_REPO}
       fi
